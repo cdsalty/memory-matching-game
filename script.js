@@ -97,7 +97,7 @@ const checkForMatch = (e) => {
       playerLivesSpanTag.textContent = livesRemaining;
       console.log({ livesRemaining });
       if (livesRemaining === 0) {
-        console.log("reached the if statement");
+        console.log("reached the if statement SO WHY AREN'T YOU RESTARTING!?");
         restartGame();
       }
     }
@@ -113,7 +113,7 @@ const restartGame = () => {
   playerLivesSpanTag.textContent = livesRemaining;
   console.log("Here");
   cardData.forEach((index, item) => {
-    console.log("foreachstatement");
+    console.log("foreachstatement in process");
     // loop over each card, remove turnCard/flip over all cards
     cards[index].classList.remove("turnCard");
     // main reason behind this is to prevent the user from seeing the new face of the card as it changes before flicpped back over.
