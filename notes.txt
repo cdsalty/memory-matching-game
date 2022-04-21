@@ -1,0 +1,489 @@
+1. 
+const section = document.querySelector("section");
+const playerLives = document.querySelector("span");
+
+2. Determine the amount of lives a player should get and display on the screen (Futuree: One factor for difficulty settings)
+let lives = 6;
+playerLives.textContent = lives;
+
+3. Generate the HTML/Cards (TODO: Introduce the arrow function)
+const getCards = () => [
+  // generally, you will return "{ }" but in this case, we need an array of objects so we use [{}];
+  { imgSrc: "./images/dobby.jpeg", name: "Dobby" },
+  { imgSrc: "./images/funny_eyes.jpeg", name: "Dumbledore" },
+  { imgSrc: "./images/Hagwrid.jpeg", name: "Hagrid" },
+  { imgSrc: "./images/harry_potter.jpeg", name: "Harry" },
+  { imgSrc: "./images/Hermine.jpeg", name: "Hermione" },
+  { imgSrc: "./images/professor_snape.jpeg", name: "Sanpe" },
+  { imgSrc: "./images/slytheryn.jpeg", name: "Slytheryn" },
+  { imgSrc: "./images/voldemore.jpeg", name: "Voldemort" },
+  { imgSrc: "./images/dobby.jpeg", name: "Dobby" },
+  { imgSrc: "./images/funny_eyes.jpeg", name: "Dumbledore" },
+  { imgSrc: "./images/Hagwrid.jpeg", name: "Hagrid" },
+  { imgSrc: "./images/harry_potter.jpeg", name: "Harry" },
+  { imgSrc: "./images/Hermine.jpeg", name: "Hermione" },
+  { imgSrc: "./images/professor_snape.jpeg", name: "Sanpe" },
+  { imgSrc: "./images/slytheryn.jpeg", name: "Slytheryn" },
+  { imgSrc: "./images/voldemore.jpeg", name: "Voldemort" },
+];
+
+4. Create a function to put the cards in a random order
+// TODO: Introduce the "sort" method, what and why to use it and how to get a random number
+const randomizeCards = () => {
+  const cardData = getCards();
+  cardData.sort(() => Math.random() - 0.5);
+  // console.log(cardData); // confirm cards are being returned in a random order through the console
+  // BE SURE TO RETURN THE DATA SO WE CAN USE THIS FUNCTION LATER
+  return cardData;
+};
+
+// TODO: Call randomizeCards funtion
+// randomizeCards();
+
+5. Create a function that will call the randomizeCards function and generate the HTML
+  - Needs to get a random list of cards from our data
+  - Create the html to hold and display the data
+  - Create a function to loop through the cards
+  - move the html created up into our loop.
+  const cardGenerator = () => {
+  STEP 1: Get a random list of our cards
+  const cardData = randomizeCards();
+  STEP 3: Loop through our cards 
+  cardData.forEach((item) => {
+    console.log(item);
+  });
+  // console.log(cardData);
+  STEP 2: All cards should have a front and back -> You could just create this inside the loop the first time around
+  const card = document.createElement("div");
+  const cardFace = document.createElement("img");
+  const cardBack = document.createElement("div"); // TODO: Replace this with an "img" tag and use digitalcrafts logo?
+  card.classList = "card";
+  cardFace.classList = "face";
+  cardBack.classList = "back";
+  // attach the cards to the section
+};
+  STEP 4:
+  const cardGenerator = () => {
+    const cardData = randomizeCards();
+    cardData.forEach((item) => {
+      const card = document.createElement("div");
+      const cardFace = document.createElement("img");
+      const cardBack = document.createElement("div"); 
+      card.classList = "card";
+      cardFace.classList = "face";
+      cardBack.classList = "back";
+  STEP 5: Attach the cards to the section 
+    - First, we need to add the div, the actual card. We can't have a face or back until we have a card
+      section.appendChild(card);
+      - Now, give the card it's attributes
+      card.appendChild(face);
+      card.appendChild(back);
+    });
+  }; 
+  STEP 6: Attach the imag to the cardFace and display our HTML
+  cardFace.src = item.imgSrc; // in reference to our data structure
+  section.appendChild(card);
+  card.appendChild(cardFace);
+  card.appendChild(cardBack);
+
+  FINAL 
+  const cardGenerator = () => {
+  const cardData = randomizeCards();
+  cardData.forEach((item) => {
+    const card = document.createElement("div");
+    const cardFace = document.createElement("img");
+    const cardBack = document.createElement("div");
+    card.classList = "card";
+    cardFace.classList = "face";
+    cardBack.classList = "back";
+    cardFace.src = item.imgSrc; 
+    section.appendChild(card);
+    card.appendChild(cardFace);
+    card.appendChild(cardBack);
+  });
+
+STEP 7: Updated work for EVENT LISINTER & Created helper function to checkformatching cards
+// Create a function that will call the randomizeCards function and generate the HTML
+const cardGenerator = () => {
+  const cardData = randomizeCards();
+  cardData.forEach((item) => {
+    const card = document.createElement("div");
+    const face = document.createElement("img");
+    const back = document.createElement("div"); // TODO: Replace this with an "img" tag and use digitalcrafts logo?
+    card.classList = "card";
+    face.classList = "face";
+    back.classList = "back";
+    face.src = item.imgSrc; // ireference to our data structure
+    section.appendChild(card);
+    card.appendChild(face);
+    card.appendChild(back);
+
+    // STEP 7 STARTING EHRE EVENT LISTENERS
+    card.addEventListener("click", (e) => {
+      // add the functionality to toggle the card over when clicked (add the css for "turnCard")
+      card.classList.toggle("turnCard");
+      // Game functionality: Check for match (if they do, if they don't, refelect player lives, reset funcationility?)-> Create seperate function outside scope
+      checkForMatch(e); // Be sure to pass in the event in this instance since it depends on the data/cards coming into the function being called outside
+    });
+  });
+};
+
+// Check cards for match functionality
+const checkForMatch = (e) => {
+  // First: We need cards to check... Get the cards
+  const cardClicked = e.target;
+  console.log(cardClicked);
+};
+
+// Invoke cardGenerator function
+cardGenerator();
+
+
+
+
+STEP 8: FOCUS ON THE LOGIC TO CHECK FOR MATCH
+create a new class to "checkCards" class called "flipped"
+  - only have the class added once the card is clicked/flipped over.
+  - cardClicked.classList.add("flipped"); 
+    - const checkForMatch = (e) => {
+    // First: We need get the cards clicked to check; We need to grab by their name
+      const cardClicked = e.target;
+      // Now, get the flipped cards from the dom now that we added the class
+      STARTING HERE: 
+      // A. Start checking the logice for checking for a match
+  const flippedCards = document.querySelectorAll(".flipped");
+  cardClicked.classList.add("flipped"); // TODO: Swap with the row above and be sure it still works correctly.
+  // LOGIC
+  if (flippedCards.length === 2) {
+    // check the cards by their name attribute to check for match
+    if (
+      flippedCards[0].getAttribute("name") ===
+      flippedCards[1].getAttribute("name")
+    ) {
+      console.log("MATCH");
+      
+    } else {
+      console.log("W R O N G");
+    }
+  }
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+2nd Round update:
+const section = document.querySelector("section");
+const playerLives = document.querySelector("span");
+
+// Determine the amount of lives a player should get (Difficulty settings)
+let lives = 3;
+
+playerLives.textContent = lives;
+
+// Generate the HTML/Cards (TODO: Introduce the arrow function)
+const getCards = () => [
+  // generally, you will return "{ }" but in this case, we need an array of objects so we use [{}];
+  { imgSrc: "./images/dobby.jpeg", name: "Dobby" },
+  { imgSrc: "./images/funny_eyes.jpeg", name: "Dumbledore" },
+  { imgSrc: "./images/Hagwrid.jpeg", name: "Hagrid" },
+  { imgSrc: "./images/harry_potter.jpeg", name: "Harry" },
+  { imgSrc: "./images/Hermine.jpeg", name: "Hermione" },
+  { imgSrc: "./images/professor_snape.jpeg", name: "Sanpe" },
+  { imgSrc: "./images/harry_herm_ron.jpeg", name: "Group" },
+  { imgSrc: "./images/voldemore.jpeg", name: "Voldemort" },
+  { imgSrc: "./images/dobby.jpeg", name: "Dobby" },
+  { imgSrc: "./images/funny_eyes.jpeg", name: "Dumbledore" },
+  { imgSrc: "./images/Hagwrid.jpeg", name: "Hagrid" },
+  { imgSrc: "./images/harry_potter.jpeg", name: "Harry" },
+  { imgSrc: "./images/Hermine.jpeg", name: "Hermione" },
+  { imgSrc: "./images/professor_snape.jpeg", name: "Sanpe" },
+  { imgSrc: "./images/harry_herm_ron.jpeg", name: "Group" },
+  { imgSrc: "./images/voldemore.jpeg", name: "Voldemort" },
+];
+
+// Create a function to put the cards in a random order
+// TODO: Introduce the "sort" method, how to get a random number
+const randomizeCards = () => {
+  const cardData = getCards();
+  cardData.sort(() => Math.random() - 0.5);
+  // console.log(cardData); // confirm cards are being returned in a random order through the console
+  // BE SURE TO RETURN THE DATA SO WE CAN USE THIS FUNCTION LATER
+  return cardData;
+};
+
+// TODO: Call randomizeCards funtion
+// randomizeCards();
+
+// Create a function that will call the randomizeCards function and generate the HTML
+const cardGenerator = () => {
+  const cardData = randomizeCards();
+  // STEP 1: Get our cards from the newly created class of "card"
+  cardData.forEach((item) => {
+    const card = document.createElement("div");
+    const face = document.createElement("img");
+    const back = document.createElement("div"); // TODO: Replace this with an "img" tag and use digitalcrafts logo?
+    card.classList = "card";
+    face.classList = "face";
+    back.classList = "back";
+    // Attach our images render our html
+    face.src = item.imgSrc; // ireference to our data structure
+    // Step 2: We need to get the irriated card, give it a an Attribute of cardName and then define the value to attach.
+    card.setAttribute("cardName", item.name); // Sets the value of an attribute on the specified element. If the attribute already exists, the value is updated; otherwise a new attribute is added with the specified name and value.
+    section.appendChild(card);
+    card.appendChild(face);
+    card.appendChild(back);
+
+    // STEP 4: (FINAL PART) EVENT LISTENERS
+    card.addEventListener("click", (e) => {
+      // add the functionality to toggle the card over when clicked (add the css for "turnCard")
+      card.classList.toggle("turnCard");
+      // Game functionality: Check for match (if they do, if they don't, refelect player lives, reset funcationility?)-> Create seperate function outside scope
+      checkForMatch(e); // Be sure to pass in the event in this instance since it depends on the data/cards coming into the function being called outside
+    });
+  });
+};
+
+// Check cards for match functionality
+const checkForMatch = (e) => {
+  // First: We need get the cards clicked to check; We need to grab by their name
+  const cardClicked = e.target;
+  // A. Start checking the logice for checking for a match
+  cardClicked.classList.add("flipped"); // This must be above the dom method below
+  const flippedCards = document.querySelectorAll(".flipped");
+  console.log(flippedCards.length);
+  // LOGIC: Every time we click on a card, we add a flip class to it and then we check if the flipped classes has a length of 2.
+  if (flippedCards.length === 2) {
+    // check the cards by their name attribute to check for match
+    if (
+      flippedCards[0].getAttribute("cardName") ===
+      flippedCards[1].getAttribute("cardName")
+    ) {
+      // will need to run a forEach for each scenerio:
+      // 1) remove the animation that's turning over the card because we don't want to turn it back over.
+      // 2) remove the ability to click or select the cards again
+      flippedCards.forEach((card) => {
+        card.cardList.remove("flipped");
+        card.style.pointerEvents = "none";
+      });
+      console.log("MATCH");
+      console.log("Card 1:" + flippedCards[0].getAttribute("cardName"));
+      console.log("Card 2:" + flippedCards[1].getAttribute("cardName"));
+    } else {
+      console.log("There is no match");
+      // if the two cards don't match,
+      // 1) we need to loop through the cards, removing the classList of "flipped"
+      // 2) handle the animation: remove the classname of "toggle" (we also need to add a setTimeout to give it a little animation into the transition)
+      flippedCards.forEach((card) => {
+        card.classList.remove("flipped");
+        console.log("The flipped class was removed");
+        // card.classList.remove("turnCard");  // without this, you can't click the other card...
+        setTimeout(() => card.classList.remove("turnCard"), 1000);
+      });
+    }
+  }
+};
+
+
+
+------------------------------------------------------------------------
+For the css... I think it's okay to pre-style this much once we have some of the cards showing. Righ after we start using card.appendChild(cardFace)
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+h1 {
+  color: yellow;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: rgb(211, 211, 211);
+  background: linear-gradient(
+    153deg,
+    rgba(211, 211, 211, 1) 0%,
+    rgba(148, 0, 18, 1) 62%,
+    rgba(0, 0, 0, 0.8660057773109244) 100%
+  );
+}
+
+section {
+  display: grid;
+  grid-template-columns: repeat(4, 10rem);
+  grid-template-rows: repeat(4, 10rem);
+  grid-gap: 1.5rem;
+}
+
+/* section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+} */
+
+.face,
+.back {
+  width: 100%;
+  height: 100%;
+}
+--------------------------------------------------
+
+NOW.... We can start to work from here because we will have to change some things once we start working on the cards face, position, flipping, etc.
+
+start with adding details to the ".back" attritube
+.back {
+  background: white
+}
+and then move into .face/.back and set position to absolute and continue from there... 
+
+
+
+
+
+
+
+// console.log("sanity-check");
+
+const section = document.querySelector("section");
+const playerLives = document.querySelector("span");
+
+// Determine the amount of lives a player should get (Difficulty settings)
+let livesRemaining = 3;
+
+playerLives.textContent = livesRemaining;
+
+// Generate the HTML/Cards (TODO: Introduce the arrow function)
+const getCards = () => [
+  // generally, you will return "{ }" but in this case, we need an array of objects so we use [{}];
+  { imgSrc: "./images/dobby.jpeg", name: "Dobby" },
+  { imgSrc: "./images/funny_eyes.jpeg", name: "Dumbledore" },
+  { imgSrc: "./images/Hagwrid.jpeg", name: "Hagrid" },
+  { imgSrc: "./images/harry_potter.jpeg", name: "Harry" },
+  { imgSrc: "./images/Hermine.jpeg", name: "Hermione" },
+  { imgSrc: "./images/professor_snape.jpeg", name: "Sanpe" },
+  { imgSrc: "./images/harry_herm_ron.jpeg", name: "Group" },
+  { imgSrc: "./images/voldemore.jpeg", name: "Voldemort" },
+  { imgSrc: "./images/dobby.jpeg", name: "Dobby" },
+  { imgSrc: "./images/funny_eyes.jpeg", name: "Dumbledore" },
+  { imgSrc: "./images/Hagwrid.jpeg", name: "Hagrid" },
+  { imgSrc: "./images/harry_potter.jpeg", name: "Harry" },
+  { imgSrc: "./images/Hermine.jpeg", name: "Hermione" },
+  { imgSrc: "./images/professor_snape.jpeg", name: "Sanpe" },
+  { imgSrc: "./images/harry_herm_ron.jpeg", name: "Group" },
+  { imgSrc: "./images/voldemore.jpeg", name: "Voldemort" },
+];
+
+// Create a function to put the cards in a random order
+// TODO: Introduce the "sort" method, how to get a random number
+const randomizeCards = () => {
+  const cardData = getCards();
+  cardData.sort(() => Math.random() - 0.5);
+  // console.log(cardData); // confirm cards are being returned in a random order through the console
+  // BE SURE TO RETURN THE DATA SO WE CAN USE THIS FUNCTION LATER
+  return cardData;
+};
+
+// TODO: Call randomizeCards funtion
+// randomizeCards();
+
+// Create a function that will call the randomizeCards function and generate the HTML
+const cardGenerator = () => {
+  const cardData = randomizeCards();
+  // STEP 1: Get our cards from the newly created class of "card"
+  cardData.forEach((item) => {
+    const card = document.createElement("div");
+    const face = document.createElement("img");
+    const back = document.createElement("div"); // TODO: Replace this with an "img" tag and use digitalcrafts logo?
+    card.classList = "card";
+    face.classList = "face";
+    back.classList = "back";
+    // Attach our images render our html
+    face.src = item.imgSrc; // ireference to our data structure
+    // Step 2: We need to get the irriated card, give it a an Attribute of cardName and then define the value to attach.
+    card.setAttribute("cardName", item.name); // Sets the value of an attribute on the specified element. If the attribute already exists, the value is updated; otherwise a new attribute is added with the specified name and value.
+    section.appendChild(card);
+    card.appendChild(face);
+    card.appendChild(back);
+
+    // STEP 4: (FINAL PART) EVENT LISTENERS
+    card.addEventListener("click", (e) => {
+      // add the functionality to toggle the card over when clicked (add the css for "turnCard")
+      card.classList.toggle("turnCard");
+      // Game functionality: Check for match (if they do, if they don't, refelect player lives, reset funcationility?)-> Create seperate function outside scope
+      checkForMatch(e); // Be sure to pass in the event in this instance since it depends on the data/cards coming into the function being called outside
+    });
+  });
+};
+
+// Check cards for match functionality
+const checkForMatch = (e) => {
+  // First: We need get the cards clicked to check; We need to grab by their name
+  const cardClicked = e.target;
+  // A. Start checking the logice for checking for a match
+  cardClicked.classList.add("flipped"); // This must be above the dom method below
+  const flippedCards = document.querySelectorAll(".flipped");
+  // console.log(flippedCards.length);
+  // LOGIC: Every time we click on a card, we add a flip class to it and then we check if the flipped classes has a length of 2.
+  if (flippedCards.length === 2) {
+    // check the cards by their name attribute to check for match
+    if (
+      flippedCards[0].getAttribute("cardName") ===
+      flippedCards[1].getAttribute("cardName")
+    ) {
+      console.log("MATCH");
+      // will need to run a forEach for each scenerio:
+      // 1) remove the animation that's turning over the card because we don't want to turn it back over.
+      // 2) remove the ability to click or select the cards again
+      flippedCards.forEach((card) => {
+        card.classList.remove("flipped");
+        card.style.pointerEvents = "none";
+      });
+      // console.log("Card 1:" + flippedCards[0].getAttribute("cardName"));
+      // console.log("Card 2:" + flippedCards[1].getAttribute("cardName"));
+    } else {
+      // if the two cards don't match,
+      // 1) we need to loop through the cards, removing the classList of "flipped"
+      // 2) handle the animation: remove the classname of "toggle" (we also need to add a setTimeout to give it a little animation into the transition)
+      console.log("There is no match");
+      flippedCards.forEach((card) => {
+        card.classList.remove("flipped");
+        console.log("The flipped class was removed");
+        // card.classList.remove("turnCard");  // without this, you can't click the other card...
+        setTimeout(() => card.classList.remove("turnCard"), 1000);
+      });
+      livesRemaining--;
+      playerLives.textContent = livesRemaining;
+      console.log(livesRemaining);
+    }
+  }
+};
+// Next: Create a game over/restart game;
+const restartGame = () => {
+  let cardData = randomizeCards;
+  let cardsFacingUp = document.querySelectorAll(".face");
+  let cards = document.querySelectorAll(".card");
+  cardData.forEach((item, index) => {
+    // flip card(s) back over
+    cards[index].classList.remove("turnCard");
+    // randomize the order
+    cards[index].style.pointerEvents = "all";
+    cardsFacingUp[index].src = item.imgSrc;
+    cardsFacingUp[index].setAttribute("name", item.name);
+  });
+  livesRemaining = 3;
+  playerLives.textContent = livesRemaining;
+};
+
+// Invoke cardGenerator function
+cardGenerator();
+
+// https://youtu.be/-tlb4tv4mC4?t=2746
